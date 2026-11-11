@@ -1,0 +1,65 @@
+{
+    "best_score": 0,
+    "quizzes": [
+        {
+            "question": "Python에서 화면에 데이터를 출력할 때 사용하는 함수는?",
+            "choices": [
+                "input()",
+                "print()",
+                "type()",
+                "len()"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "Python에서 리스트(List)를 만들 때 사용하는 괄호는?",
+            "choices": [
+                "{ }",
+                "( )",
+                "[ ]",
+                "< >"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "다음 중 Python의 반복문 키워드가 아닌 것은?",
+            "choices": [
+                "for",
+                "while",
+                "loop",
+                "모두 반복문이다"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "Python에서 한 줄 주석을 작성할 때 사용하는 기호는?",
+            "choices": [
+                "//",
+                "/*",
+                "<!--",
+                "#"
+            ],
+            "answer": 4
+        },
+        {
+            "question": "참(True)과 거짓(False)을 나타내는 자료형의 이름은?",
+            "choices": [
+                "int",
+                "str",
+                "bool",
+                "float"
+            ],
+            "answer": 3
+        },
+        {
+            "question": "다음 중 리시트의 특징으로 올바른 것은?",
+            "choices": [
+                "중복된 값을 저장할 수 없다",
+                "값을 수정할 수 없다",
+                "여러 자료형을 함께 저장할 수 있다",
+                "항상 오름차순으로 정렬된다"
+            ],
+            "answer": 3
+        }
+    ]
+}
