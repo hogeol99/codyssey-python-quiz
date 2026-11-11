@@ -31,8 +31,11 @@
 
 📦 python-quiz-game
  ┣ 📜 .gitignore    # Git 추적에서 제외할 파일/폴더 목록 (예: __pycache__ 등)
+
  ┣ 📜 main.py       # 게임 실행을 위한 메인 소스 코드 (Quiz, QuizGame 클래스 포함)
+
  ┣ 📜 state.json    # 게임 데이터(퀴즈 목록, 최고 점수)가 저장되는 파일
+ 
  ┗ 📜 README.md     # 프로젝트 설명서 (현재 파일)
 
 # 💾 데이터 파일 설명 (state.json)
