@@ -1,63 +1,73 @@
 {
-    "best_score": 0,
+    "best_score": 40,
     "quizzes": [
         {
-            "question": "Python에서 화면에 데이터를 출력할 때 사용하는 함수는?",
+            "question": "파이썬의 창시자는?",
             "choices": [
-                "input()",
-                "print()",
-                "type()",
-                "len()"
+                "1. 귀도 반 로섬",
+                "2. 제임스 고슬링",
+                "3. 데니스 리치",
+                "4. 리누스 토발즈"
+            ],
+            "answer": 1
+        },
+        {
+            "question": "파이썬의 리스트 추가 메서드는?",
+            "choices": [
+                "1. add()",
+                "2. append()",
+                "3. insert()",
+                "4. push()"
             ],
             "answer": 2
         },
         {
-            "question": "Python에서 리스트(List)를 만들 때 사용하는 괄호는?",
+            "question": "파이썬에서 함수를 정의할 때 쓰는 키워드는?",
             "choices": [
-                "{ }",
-                "( )",
-                "[ ]",
-                "< >"
+                "1. func",
+                "2. def",
+                "3. function",
+                "4. define"
+            ],
+            "answer": 2
+        },
+        {
+            "question": "파이썬의 딕셔너리는 어떤 구조인가요?",
+            "choices": [
+                "1. LIFO",
+                "2. FIFO",
+                "3. Key-Value",
+                "4. Index-Value"
             ],
             "answer": 3
         },
         {
-            "question": "다음 중 Python의 반복문 키워드가 아닌 것은?",
+            "question": "파이썬에서 문자열 길이를 구하는 함수는?",
             "choices": [
-                "for",
-                "while",
-                "loop",
-                "모두 반복문이다"
+                "1. length()",
+                "2. size()",
+                "3. len()",
+                "4. count()"
             ],
             "answer": 3
         },
         {
-            "question": "Python에서 한 줄 주석을 작성할 때 사용하는 기호는?",
+            "question": "test",
             "choices": [
-                "//",
-                "/*",
-                "<!--",
-                "#"
-            ],
-            "answer": 4
-        },
-        {
-            "question": "참(True)과 거짓(False)을 나타내는 자료형의 이름은?",
-            "choices": [
-                "int",
-                "str",
-                "bool",
-                "float"
+                "1. 1",
+                "2. 2",
+                "3. 3",
+                "4. 4"
             ],
             "answer": 3
         },
         {
-            "question": "다음 중 리시트의 특징으로 올바른 것은?",
+            "question": "test",
             "choices": [
-                "중복된 값을 저장할 수 없다",
-                "값을 수정할 수 없다",
-                "여러 자료형을 함께 저장할 수 있다",
-                "항상 오름차순으로 정렬된다"
+                "1. 1",
+                "2. 2",
+                "3. 3",
+                "4. 4"
             ],
             "answer": 3
         }
