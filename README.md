@@ -67,3 +67,5 @@
 ```
 - **best_score (Integer)**: 현재까지 획득한 최고 점수
 - **quizzes (Array)**: 퀴즈 객체(question, choices, answer)를 담고 있는 리스트
+
+# * ✨ Git Clone & Pull 협업 실습 완료!
