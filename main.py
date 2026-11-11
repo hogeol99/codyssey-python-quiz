@@ -60,23 +60,34 @@ def load_data():
     if not os.path.exists("state.json"):
         return get_default_quizzes(), 0
         
-    # 파일이 있으면 읽기 모드(r)로 엽니다.
-    with open("state.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
+    try:
+        # 2. 파일이 있으면 읽기 모드로 엽니다.
+        with open("state.json", "r", encoding="utf-8") as f:
+            data = json.load(f) # 여기서 파일이 손상되었다면 에러가 발생합니다!
+            
+        best_score = data.get("best_score", 0)
+        quiz_list = data.get("quizzes", [])
         
-    best_score = data.get("best_score", 0)
-    quiz_list = data.get("quizzes", [])
-    
-    # 딕셔너리 데이터를 다시 Quiz 객체로 조립합니다.
-    quizzes = []
-    for q in quiz_list:
-        quizzes.append(Quiz(q["question"], q["choices"], q["answer"]))
+        quizzes = []
+        for q in quiz_list:
+            quizzes.append(Quiz(q["question"], q["choices"], q["answer"]))
+            
+        if len(quizzes) == 0:
+            quizzes = get_default_quizzes()
+            
+        return quizzes, best_score
         
-    # 만약 파일은 있는데 퀴즈가 다 지워져 있다면 기본 퀴즈를 줍니다.
-    if len(quizzes) == 0:
-        quizzes = get_default_quizzes()
+    # 3. [추가] JSON 파일 형식이 망가졌을 때(손상되었을 때) 처리
+    except json.JSONDecodeError:
+        print("\n⚠️ [경고] 저장된 데이터 파일(state.json)이 손상되었습니다.")
+        print("🔄 기본 퀴즈 데이터로 초기화하여 게임을 시작합니다.\n")
+        return get_default_quizzes(), 0
         
-    return quizzes, best_score
+    # 4. [추가] 그 외 예상치 못한 에러가 발생했을 때 처리
+    except Exception as e:
+        print(f"\n⚠️ [경고] 데이터를 불러오는 중 알 수 없는 오류가 발생했습니다: {e}")
+        print("🔄 기본 퀴즈 데이터로 초기화하여 게임을 시작합니다.\n")
+        return get_default_quizzes(), 0
 
 
 def main():
@@ -163,7 +174,7 @@ def main():
                 print("✅ 새 퀴즈가 성공적으로 추가되었습니다!")
                 # 3️⃣ [추가] 새 퀴즈가 추가되었으니 파일에 저장합니다.
                 save_data(quizzes, best_score)
-                
+
             elif choice == 3:
                 print("\n[ 퀴즈 목록 ]")
                 # 등록된 퀴즈들의 문제(question)만 순서대로 보여줍니다.
