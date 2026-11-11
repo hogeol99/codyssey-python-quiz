@@ -182,8 +182,15 @@ def main():
                     print(f"{i}. {quiz.question}")
 
             elif choice == 4:
-                print(f"\n🏆 현재 최고 점수: {best_score}점")
-            
+                print("\n--- 🏆 최고 점수 확인 ---")
+                # [추가] 아직 퀴즈를 풀지 않았거나 점수가 0점인 경우를 처리합니다.
+                if best_score == 0:
+                    print("아직 퀴즈를 풀지 않았거나 획득한 점수가 없습니다.")
+                    print("1번 메뉴를 선택해 퀴즈에 먼저 도전해 보세요! 💪")
+                else:
+                    print(f"현재 최고 점수는 {best_score}점 입니다! 🎉")
+                print("------------------------\n")
+                
             
             elif choice == 5:
                 print("👋 게임을 종료합니다. 안녕히 가세요!")
