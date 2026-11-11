@@ -1,5 +1,40 @@
 import sys
 
+import sys
+
+class Quiz:
+    # __init__은 퀴즈 객체가 처음 만들어질 때 속성(데이터)을 초기화하는 특별한 메서드입니다.
+    def __init__(self, question, choices, answer):
+        self.question = question  # 문제 내용 (문자열)
+        self.choices = choices    # 선택지 4개 (리스트)
+        self.answer = answer      # 정답 번호 1~4 (정수)
+
+    # 퀴즈를 화면에 예쁘게 출력하는 메서드
+    def display(self):
+        print(f"\nQ. {self.question}")
+        # enumerate를 사용하면 리스트의 항목과 인덱스(1부터 시작)를 함께 얻을 수 있습니다.
+        for i, choice in enumerate(self.choices, 1):
+            print(f"{i}. {choice}")
+
+    # 사용자가 입력한 정답이 맞는지 확인하는 메서드
+    def check_answer(self, user_answer):
+        return self.answer == user_answer
+
+
+# 기본 퀴즈 5개를 만들어 리스트로 반환하는 함수입니다.
+
+def get_default_quizzes():
+    return [
+        Quiz("Python에서 화면에 데이터를 출력할 때 사용하는 함수는?", ["input()", "print()", "type()", "len()"], 2),
+        Quiz("Python에서 리스트(List)를 만들 때 사용하는 괄호는?", ["{ }", "( )", "[ ]", "< >"], 3),
+        Quiz("다음 중 Python의 반복문 키워드가 아닌 것은?", ["for", "while", "loop", "모두 반복문이다"], 3),
+        Quiz("Python에서 한 줄 주석을 작성할 때 사용하는 기호는?", ["//", "/*", "<!--", "#"], 4),
+        Quiz("참(True)과 거짓(False)을 나타내는 자료형의 이름은?", ["int", "str", "bool", "float"], 3)
+    ]
+
+
+
+
 def main():
     print("🎉 나만의 퀴즈 게임에 오신 것을 환영합니다! 🎉")
     
