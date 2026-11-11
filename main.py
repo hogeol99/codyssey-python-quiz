@@ -37,9 +37,10 @@ def get_default_quizzes():
 
 def main():
     print("🎉 나만의 퀴즈 게임에 오신 것을 환영합니다! 🎉")
-    # [추가] 게임 시작 전에 기본 퀴즈 데이터를 불러옵니다.
+    
     quizzes = get_default_quizzes()
-    # 사용자가 종료를 선택할 때까지 계속 반복합니다.
+    best_score = 0  # [추가] 최고 점수를 기억할 변수입니다.
+    
     while True:
         print("\n" + "="*20)
         print("1. 퀴즈 풀기")
@@ -50,33 +51,23 @@ def main():
         print("="*20)
         
         try:
-            # input()으로 입력을 받고, strip()으로 양옆의 공백(띄어쓰기)을 제거합니다.
             choice_str = input("원하는 기능을 선택하세요 (1~5): ").strip()
-            
-            # 1. 빈 입력(그냥 Enter만 친 경우) 처리
             if not choice_str:
                 print("⚠️ 입력값이 없습니다. 번호를 입력해 주세요.")
-                continue # 아래 코드를 실행하지 않고 다시 while문 처음(메뉴 출력)으로 돌아감
+                continue
                 
-            # 2. 문자를 입력했는지 확인 (숫자로 변환 시도)
-            # 만약 "안녕" 같은 문자가 들어오면 여기서 ValueError가 발생하여 except 구문으로 이동합니다.
             choice = int(choice_str)
-            
-            # 3. 허용 범위(1~5) 밖의 숫자 처리
             if choice < 1 or choice > 5:
                 print("⚠️ 1에서 5 사이의 숫자를 입력해 주세요.")
                 continue
                 
-            # 정상적인 입력이 들어왔을 때의 기능 분기
             if choice == 1:
                 print("\n🚀 퀴즈 게임을 시작합니다!")
-                score = 0 # 점수 초기화
+                score = 0 
                 
-                # quizzes 리스트에 있는 퀴즈를 하나씩 꺼내서 반복합니다.
                 for quiz in quizzes:
-                    quiz.display() # 문제와 선택지 출력
+                    quiz.display()
                     
-                    # 사용자가 올바른 정답(1~4)을 입력할 때까지 반복해서 물어봅니다.
                     while True:
                         try:
                             ans_str = input("정답을 입력하세요 (1~4): ").strip()
@@ -86,39 +77,65 @@ def main():
                             if ans < 1 or ans > 4:
                                 print("⚠️ 1에서 4 사이의 숫자를 입력해 주세요.")
                                 continue
-                            
-                            break # 정상적인 숫자를 입력했으면 입력 무한루프 탈출!
+                            break
                         except ValueError:
                             print("⚠️ 숫자만 입력해 주세요.")
                     
-                    # 정답 확인
                     if quiz.check_answer(ans):
                         print("✅ 정답입니다!")
-                        score += 1 # 정답이면 점수 1점 증가
+                        score += 1
                     else:
                         print(f"❌ 틀렸습니다. 정답은 {quiz.answer}번입니다.")
                 
-                # 모든 퀴즈를 풀고 난 후 결과 출력
                 print(f"\n🎉 게임 종료! 총 {len(quizzes)}문제 중 {score}문제를 맞히셨습니다.")
-
+                
+                # [추가] 방금 얻은 점수가 기존 최고 점수보다 높으면 갱신합니다!
+                if score > best_score:
+                    print(f"🌟 축하합니다! 최고 점수 갱신! (기존: {best_score} -> 현재: {score})")
+                    best_score = score
+            
+            
             elif choice == 2:
-                print("👉 퀴즈 추가 기능을 실행합니다. (구현 예정)")
+                print("\n[ 퀴즈 추가 ]")
+                new_q = input("문제를 입력하세요: ").strip()
+                
+                new_choices = []
+                for i in range(1, 5):
+                    c = input(f"{i}번 선택지를 입력하세요: ").strip()
+                    new_choices.append(c) # 리스트에 선택지 추가
+                
+                while True:
+                    try:
+                        new_a = int(input("정답 번호를 입력하세요 (1~4): ").strip())
+                        if 1 <= new_a <= 4:
+                            break
+                        print("⚠️ 1에서 4 사이의 숫자를 입력해 주세요.")
+                    except ValueError:
+                        print("⚠️ 숫자만 입력해 주세요.")
+                
+                # 새로운 Quiz 객체를 만들어서 quizzes 리스트에 추가(append)합니다.
+                quizzes.append(Quiz(new_q, new_choices, new_a))
+                print("✅ 새 퀴즈가 성공적으로 추가되었습니다!")
+
             elif choice == 3:
-                print("👉 퀴즈 목록 기능을 실행합니다. (구현 예정)")
+                print("\n[ 퀴즈 목록 ]")
+                # 등록된 퀴즈들의 문제(question)만 순서대로 보여줍니다.
+                for i, quiz in enumerate(quizzes, 1):
+                    print(f"{i}. {quiz.question}")
+
             elif choice == 4:
-                print("👉 최고 점수 확인 기능을 실행합니다. (구현 예정)")
+                print(f"\n🏆 현재 최고 점수: {best_score}점")
+            
+            
             elif choice == 5:
                 print("👋 게임을 종료합니다. 안녕히 가세요!")
-                break # while 무한 루프를 탈출하여 프로그램 종료
+                break
                 
         except ValueError:
             print("⚠️ 숫자만 입력할 수 있습니다. 다시 입력해 주세요.")
-            
-        # 사용자가 강제로 Ctrl+C를 누르거나(KeyboardInterrupt) 터미널 입력을 끊었을 때(EOFError)
         except (KeyboardInterrupt, EOFError):
             print("\n🚨 강제 종료 요청이 감지되었습니다.")
-            print("데이터를 안전하게 저장하고 프로그램을 종료합니다. (저장 기능 구현 예정)")
-            sys.exit(0) # 프로그램 안전 종료
+            sys.exit(0)
 
 if __name__ == "__main__":
     main()
