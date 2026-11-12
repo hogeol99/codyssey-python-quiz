@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 # 1. 개별 퀴즈를 담당하는 클래스
 class Quiz:
@@ -79,11 +80,29 @@ class QuizGame:
                 print(choice)
                 
             while True:
+                # 1. 입력 앞뒤 공백 제거 (.strip() 사용)
+                raw_input = input("정답을 입력하세요 (번호): ").strip()
+                
+                # 2. 빈 입력(그냥 Enter)인 경우 처리
+                if not raw_input: # 또는 if raw_input == "":
+                    print("⚠️ 아무것도 입력하지 않으셨습니다. 정답 번호를 입력해주세요.")
+                    continue # 다시 입력받도록 while문 처음으로 돌아감
+                    
+                # 3. 숫자 변환 시도 및 실패(abc 등) 처리
                 try:
-                    user_answer = int(input("정답을 입력하세요 (번호): "))
-                    break
+                    user_answer = int(raw_input)
                 except ValueError:
-                    print("숫자만 입력해주세요!")
+                    print("⚠️ 숫자만 입력해주세요! (예: 1)")
+                    continue
+                    
+                # 4. 허용 범위 밖 숫자(예: 0, 9) 입력 시 처리
+                
+                if user_answer < 1 or user_answer > 4:
+                    print(f"⚠️ 보기의 범위(1~4) 안에서 입력해주세요.")
+                    continue
+                    
+                # 모든 검증을 무사히 통과했다면 while 반복문 탈출!
+                break
                     
             if user_answer == quiz.answer:
                 print("✅ 정답입니다!")
@@ -193,7 +212,17 @@ class QuizGame:
             else:
                 print("⚠️ 1~5 사이의 번호를 선택해주세요.")
 
-# 3. 프로그램 실행 부분
 if __name__ == "__main__":
-    game = QuizGame() # 게임 객체 생성
-    game.run()        # 게임 실행
+    try:
+        game = QuizGame() # 게임 객체 생성
+        game.run()        # 게임 실행
+        
+    except (KeyboardInterrupt, EOFError):
+        # Ctrl+C 또는 입력 스트림 강제 종료 시 이곳이 실행됩니다.
+        print("\n\n⚠️ [안내] 프로그램이 강제 중단되었습니다.")
+        print("현재까지의 데이터를 안전하게 저장하고 프로그램을 종료합니다...")
+        
+       
+        game.save_data() 
+        
+        sys.exit(0) # 에러 없이 안전하게 프로그램 종료
